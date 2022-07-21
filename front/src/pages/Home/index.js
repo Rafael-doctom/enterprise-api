@@ -11,20 +11,8 @@ const Home = () => {
         setData(dados);
     };
 
-    const endPoints = [
-        "https://randomuser.me/api/?results=1",
-        "https://randomuser.me/api/?results=1"
-    ]
-
-    const getUserImageProfile = async () => {
-        const response = await fetch("https://randomuser.me/api/?results=1")
-        const images = await response.json();
-        setImage(images.results)
-    }
-
     useEffect(() => {
         getData()
-        getUserImageProfile()
     }, []);
 
     return (
@@ -37,21 +25,11 @@ const Home = () => {
                                 data.map((item) => {
                                     return (<>
                                         <h1>{item.name}</h1>
-                                        {
-                                            image.length > 0 &&(
-                                                image.map((item) => {
-                                                    return (
-                                                        <>
-                                                            <img src={item.picture.large} alt="image profile" />
-                                                        </>)
-                                                })
-                                            )
-                                        }
+                                        <img src={item.imageProfile ? item.imageProfile : "https://cdn-icons-png.flaticon.com/512/17/17004.png"} alt="image profile" />
                                     </>)
                                 })
                             )
                         }
-
                     </div>
                 </div>
             </main>
