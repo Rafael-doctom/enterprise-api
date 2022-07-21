@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 
+import Navbar from "../../components/navbar";
+import Sidebar from "../../components/sidebar";
+import * as S from './style';
+
 const Home = () => {
 
     const [data, setData] = useState([]);
-    const [image, setImage] = useState([]);
+    // const [image, setImage] = useState([]);
 
     const getData = async () => {
         const response = await fetch('http://localhost:3001/');
@@ -17,22 +21,28 @@ const Home = () => {
 
     return (
         <>
-            <main>
-                <div className="cards">
-                    <div className="card">
+            <Navbar />
+            <S.Main>
+                <Sidebar />
+
+                <S.Cards>
+                    <S.Card>
                         {
                             data && (
                                 data.map((item) => {
-                                    return (<>
-                                        <h1>{item.name}</h1>
-                                        <img src={item.imageProfile ? item.imageProfile : "https://cdn-icons-png.flaticon.com/512/17/17004.png"} alt="image profile" />
-                                    </>)
+                                    return (
+                                        <>
+                                            <S.CardData>
+                                                <S.UserImage src={item.imageProfile ? item.imageProfile : "https://cdn-icons-png.flaticon.com/512/17/17004.png"} alt="image profile" />
+                                                <h1>{item.name}</h1>
+                                            </S.CardData>
+                                        </>)
                                 })
                             )
                         }
-                    </div>
-                </div>
-            </main>
+                    </S.Card>
+                </S.Cards>
+            </S.Main>
         </>
     )
 };
